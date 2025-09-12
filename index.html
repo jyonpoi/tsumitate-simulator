@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>積立資産シミュレーター</title>
+  <link rel="stylesheet" href="tumitate_style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <h1>積立資産シミュレーター</h1>
+  <form id="calculator">
+<div class="form-group">
+  <label for="monthly">月々の積立額（円）</label>
+  <input type="number" id="monthly" placeholder="例：30000" requiredrequired>
+</div>
+<div class="form-group">
+  <label for="rate">年利（%）</label>
+  <input type="number" id="rate" step="0.1" placeholder="例：3.5" required>
+</div>
+<div class="form-group">
+  <label for="years">積立年数</label>
+  <input type="number" id="years" placeholder="例：20" required>
+</div>
+    <button type="submit">計算する</button>
+    <label>
+      <input type="checkbox" id = "nisaMode">
+      積立NISAモード(元本上限1800万円)
+    </label><br>
+  </form>
+  <canvas id="growthChart" class="responsive-chart"></canvas>
+  <div id="result"></div>
+  <script src="script.js"></script>
+</body>
+</html>

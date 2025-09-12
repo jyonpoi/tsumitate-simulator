@@ -1,0 +1,120 @@
+/* 全体の背景とフォント設定 */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+  background-color: #1e1e2f;
+  color: #e0e0e0;
+  padding: 2em;
+  font-size: 18px; /* 全体の文字サイズを少し大きめに */
+}
+
+/* コンテナのレイアウト */
+.container {
+  max-width: 700px;
+  margin: auto;
+  background-color: #2a2a3d;
+  padding: 2em;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+/* タイトル */
+h1 {
+  text-align: center;
+  color: #ffffff;
+  margin-bottom: 2em;
+  font-size: 2em; /* タイトルを大きく強調 */
+}
+
+/* 入力フォームのグループ化 */
+.form-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 1.5em;
+  gap: 1em;
+}
+
+/* ラベルのスタイル */
+.form-group label {
+  min-width: 160px;
+  font-weight: 500;
+  color: #cfcfcf;
+}
+
+/* 入力欄のスタイル */
+.form-group input {
+  flex: 1;
+  padding: 0.8em;
+  font-size: 1.1em;
+  background-color: #3a3a4f;
+  color: #ffffff;
+  border: 1px solid #555;
+  border-radius: 6px;
+}
+
+/* 入力欄フォーカス時の強調 */
+.form-group input:focus {
+  outline: none;
+  border-color: #66afe9;
+  box-shadow: 0 0 5px rgba(102, 175, 233, 0.6);
+}
+
+/* ボタンのスタイル */
+button {
+  padding: 0.8em 1.5em;
+  font-size: 1.1em;
+  background-color: #4a90e2;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+button:hover {
+  background-color: #357ab8;
+}
+
+/* 結果表示エリア */
+#result {
+  margin-top: 2em;
+  line-height: 1.8;
+  color: #ffffff;
+  font-size: 1.2em;
+}
+
+#result strong {
+  display: block;
+  font-size: 1.6em; /* 総資産額だけ少し大きく */
+  color: #2ecc71;   /* 明るめのグリーンで強調 */
+  margin-bottom: 0.5em;
+}
+
+.result-item {
+  font-size: 1.2em;
+  color: #cccccc;
+}
+
+/* グラフのサイズと配置 */
+#growthChart {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  margin-top: 2em;
+  display: block;
+}
+
+/* スマホ対応：フォームの縦並び */
+@media (max-width: 600px) {
+  .form-group {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .form-group label {
+    min-width: auto;
+  }
+
+  .form-group input {
+    width: 100%;
+  }
+}
