@@ -7,28 +7,41 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-  <h1>積立資産シミュレーター</h1>
-  <form id="calculator">
-<div class="form-group">
-  <label for="monthly">月々の積立額（円）</label>
-  <input type="number" id="monthly" placeholder="例：30000" requiredrequired>
-</div>
-<div class="form-group">
-  <label for="rate">年利（%）</label>
-  <input type="number" id="rate" step="0.1" placeholder="例：3.5" required>
-</div>
-<div class="form-group">
-  <label for="years">積立年数</label>
-  <input type="number" id="years" placeholder="例：20" required>
-</div>
-    <button type="submit">計算する</button>
-    <label>
-      <input type="checkbox" id = "nisaMode">
-      積立NISAモード(元本上限1800万円)
-    </label><br>
-  </form>
-  <canvas id="growthChart" class="responsive-chart"></canvas>
-  <div id="result"></div>
+  <div class="container">
+    <h1>積立資産シミュレーター</h1>
+
+    <form id="calculator">
+      <div class="form-group">
+        <label for="monthly">月々の積立額（円）</label>
+        <input type="number" id="monthly" placeholder="例：30000" inputmode="numeric" pattern="[0-9]*" required>
+      </div>
+      <div class="form-group">
+        <label for="rate">年利（%）</label>
+        <input type="number" id="rate" step="0.1" placeholder="例：3.5" inputmode="decimal" pattern="[0-9]*" required>
+      </div>
+      <div class="form-group">
+        <label for="years">積立年数</label>
+        <input type="number" id="years" placeholder="例：20" inputmode="numeric" pattern="[0-9]*" required>
+      </div>
+
+      <!-- ボタンとチェックボックスを横並びに -->
+      <div class="form-actions">
+        <button type="submit">計算する</button>
+        <label for="nisaMode" class="nisa-label">
+          <input type="checkbox" id="nisaMode">
+          積立NISAモード（元本上限1800万円）
+        </label>
+      </div>
+    </form>
+
+    <!-- 入力値の表示 -->
+    <div id="inputSummary"></div>
+
+    <!-- グラフと結果 -->
+    <canvas id="growthChart" class="responsive-chart"></canvas>
+    <div id="result"></div>
+  </div>
+
   <script src="script.js"></script>
 </body>
 </html>

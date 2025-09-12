@@ -2,7 +2,7 @@ document.getElementById("calculator").addEventListener("submit", function(e) {
   e.preventDefault();
 
   const monthly = parseFloat(document.getElementById("monthly").value);
-  const rate = parseFloat(document.getElementById("rate").value) / 100 / 12;
+  const rate = parseFloat(document.getElementById("rate").value) / 100 / 12; // 月利
   const years = parseInt(document.getElementById("years").value);
   const months = years * 12;
   const nisaMode = document.getElementById("nisaMode").checked;
@@ -36,95 +36,104 @@ document.getElementById("calculator").addEventListener("submit", function(e) {
 
   const interest = total - principalAccumulated;
 
-document.getElementById("result").innerHTML = `
-  <strong>総資産額：¥${Math.round(total).toLocaleString()}</strong>
-  <div class="result-item">元本：¥${Math.round(principalAccumulated).toLocaleString()}</div>
-  <div class="result-item">利息：¥${Math.round(interest).toLocaleString()}</div>
-`;
+  // 入力値の表示（グラフの上に）
+  document.getElementById("inputSummary").innerHTML = `
+    <div class="input-item">月々の積立額：¥${monthly.toLocaleString()}</div>
+    <div class="input-item">年利：${(rate * 12 * 100).toFixed(2)}%</div>
+    <div class="input-item">積立年数：${years}年</div>
+  `;
 
+  // 結果表示
+  document.getElementById("result").innerHTML = `
+    <strong>総資産額：¥${Math.round(total).toLocaleString()}</strong>
+    <div class="result-item">元本：¥${Math.round(principalAccumulated).toLocaleString()}</div>
+    <div class="result-item">利息：¥${Math.round(interest).toLocaleString()}</div>
+  `;
+
+  // グラフ描画
   const ctx = document.getElementById("growthChart").getContext("2d");
   if (window.myChart) window.myChart.destroy();
 
   window.myChart = new Chart(ctx, {
     type: 'line',
     data: {
-      labels: Array.from({length: years + 1}, (_, i) => `${i}年目`),
+      labels: Array.from({ length: years + 1 }, (_, i) => `${i}年目`),
       datasets: [
-{
-  label: '総資産額',
-  data: totalData,
-  borderColor: '#2ecc71',
-  backgroundColor: 'rgba(46, 204, 113, 0.2)',
-  fill: true,
-  tension: 0.4,
-  pointRadius: 4,
-  pointHoverRadius: 8,
-  pointBackgroundColor: '#2ecc71',
-  pointHoverBackgroundColor: '#27ae60',
-  pointBorderColor: '#ffffff',
-  pointHoverBorderColor: '#f1c40f'
-},
-{
-  label: '元本（積立額）',
-  data: principalData,
-  borderColor: '#9b59b6',
-  backgroundColor: 'rgba(155, 89, 182, 0.2)',
-  fill: false,
-  borderDash: [5, 5],
-  tension: 0.4,
-  pointRadius: 4,
-  pointHoverRadius: 8,
-  pointBackgroundColor: '#9b59b6',
-  pointHoverBackgroundColor: '#8e44ad',
-  pointBorderColor: '#ffffff',
-  pointHoverBorderColor: '#f1c40f'
-}
+        {
+          label: '総資産額',
+          data: totalData,
+          borderColor: '#2ecc71',
+          backgroundColor: 'rgba(46, 204, 113, 0.2)',
+          fill: true,
+          tension: 0.4,
+          pointRadius: 4,
+          pointHoverRadius: 8,
+          pointBackgroundColor: '#2ecc71',
+          pointHoverBackgroundColor: '#27ae60',
+          pointBorderColor: '#ffffff',
+          pointHoverBorderColor: '#f1c40f'
+        },
+        {
+          label: '元本（積立額）',
+          data: principalData,
+          borderColor: '#9b59b6',
+          backgroundColor: 'rgba(155, 89, 182, 0.2)',
+          fill: false,
+          borderDash: [5, 5],
+          tension: 0.4,
+          pointRadius: 4,
+          pointHoverRadius: 8,
+          pointBackgroundColor: '#9b59b6',
+          pointHoverBackgroundColor: '#8e44ad',
+          pointBorderColor: '#ffffff',
+          pointHoverBorderColor: '#f1c40f'
+        }
       ]
     },
-options: {
-  responsive: true,
-  maintainAspectRatio: true,
-  interaction: {
-    mode: 'index',
-    intersect: false
-  },
-  animation: {
-    duration: 1500,
-    easing: 'easeOutQuart'
-  },
-  plugins: {
-    tooltip: {
-      mode: 'index',
-      intersect: false,
-      callbacks: {
-        label: function(context) {
-          const label = context.dataset.label || '';
-          const value = context.parsed.y;
-          return `${label}: ¥${value.toLocaleString()}`;
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      interaction: {
+        mode: 'index',
+        intersect: false
+      },
+      animation: {
+        duration: 1500,
+        easing: 'easeOutQuart'
+      },
+      plugins: {
+        tooltip: {
+          mode: 'index',
+          intersect: false,
+          callbacks: {
+            label: function(context) {
+              const label = context.dataset.label || '';
+              const value = context.parsed.y;
+              return `${label}: ¥${value.toLocaleString()}`;
+            }
+          }
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            callback: value => `¥${value.toLocaleString()}`,
+            color: '#e0f7fa'
+          },
+          grid: {
+            color: 'rgba(255, 255, 255, 0.1)'
+          }
+        },
+        x: {
+          ticks: {
+            color: '#e0f7fa'
+          },
+          grid: {
+            color: 'rgba(255, 255, 255, 0.05)'
+          }
         }
       }
     }
-  },
-  scales: {
-    y: {
-      beginAtZero: true,
-      ticks: {
-        callback: value => `¥${value.toLocaleString()}`,
-        color: '#e0f7fa'
-      },
-      grid: {
-        color: 'rgba(255, 255, 255, 0.1)'
-      }
-    },
-    x: {
-      ticks: {
-        color: '#e0f7fa'
-      },
-      grid: {
-        color: 'rgba(255, 255, 255, 0.05)'
-      }
-    }
-  }
-}
   });
 });

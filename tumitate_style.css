@@ -4,16 +4,16 @@ body {
   font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
   background-color: #1e1e2f;
   color: #e0e0e0;
-  padding: 2em;
-  font-size: 18px; /* 全体の文字サイズを少し大きめに */
+  padding: 1em 2em;
+  font-size: 18px;
 }
 
 /* コンテナのレイアウト */
 .container {
-  max-width: 700px;
+  max-width: 1000px;
   margin: auto;
   background-color: #2a2a3d;
-  padding: 2em;
+  padding: 2em 3em;
   border-radius: 12px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
 }
@@ -23,34 +23,42 @@ h1 {
   text-align: center;
   color: #ffffff;
   margin-bottom: 2em;
-  font-size: 2em; /* タイトルを大きく強調 */
+  font-size: 2.4em;
 }
 
 /* 入力フォームのグループ化 */
 .form-group {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: flex-start;
   margin-bottom: 1.5em;
   gap: 1em;
 }
 
 /* ラベルのスタイル */
 .form-group label {
-  min-width: 160px;
+  width: 160px;
   font-weight: 500;
   color: #cfcfcf;
+  font-size: 1.1em;
 }
 
 /* 入力欄のスタイル */
-.form-group input {
+.form-group input[type="number"] {
   flex: 1;
-  padding: 0.8em;
-  font-size: 1.1em;
+  max-width: 300px; /*横幅を狭めて体裁を整える*/
+  padding: 0.9em;
+  font-size: 1.2em;
   background-color: #3a3a4f;
   color: #ffffff;
   border: 1px solid #555;
   border-radius: 6px;
+}
+
+/* チェックボックスの拡大 */
+input[type="checkbox"] {
+  transform: scale(1.4);
+  margin-right: 0.6em;
 }
 
 /* 入力欄フォーカス時の強調 */
@@ -62,8 +70,8 @@ h1 {
 
 /* ボタンのスタイル */
 button {
-  padding: 0.8em 1.5em;
-  font-size: 1.1em;
+  padding: 0.9em 1.6em;
+  font-size: 1.2em;
   background-color: #4a90e2;
   color: #fff;
   border: none;
@@ -78,18 +86,17 @@ button:hover {
 /* 結果表示エリア */
 #result {
   margin-top: 2em;
-  line-height: 1.8;
+  font-weight: 500;
   color: #ffffff;
-  font-size: 1.2em;
+  line-height: 1.8;
+  font-size: 1.3em;
 }
-
 #result strong {
   display: block;
-  font-size: 1.6em; /* 総資産額だけ少し大きく */
-  color: #2ecc71;   /* 明るめのグリーンで強調 */
+  font-size: 1.6em;
+  color: #2ecc71;
   margin-bottom: 0.5em;
 }
-
 .result-item {
   font-size: 1.2em;
   color: #cccccc;
@@ -98,23 +105,103 @@ button:hover {
 /* グラフのサイズと配置 */
 #growthChart {
   width: 100%;
-  aspect-ratio: 4 / 3;
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
   margin-top: 2em;
   display: block;
 }
+.form-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5em;
+  margin-top: 1.5em;
+  flex-wrap: wrap;
+}
 
-/* スマホ対応：フォームの縦並び */
+.nisa-label {
+  font-size: 1.1em;
+  color: #ccc;
+  display: flex;
+  align-items: center;
+}
+.nisa-label input[type="checkbox"] {
+  transform: scale(1.4);
+  margin-right: 0.5em;
+}
+
+/* 入力内容の表示エリアを横並びに */
+#inputSummary {
+  margin-top: 2.5em; /* ボタンとの間に余白を追加 */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2em;
+  font-size: 1.2em;
+  color: #eeeeee;
+  line-height: 1.6;
+}
+
+/* 各項目を個別にスタイル */
+.input-item {
+  white-space: nowrap;
+}
+
+
+/* スマホ対応：フォームの縦並びとサイズ調整 */
 @media (max-width: 600px) {
+  body {
+    font-size: 19px;
+  }
+
+  h1 {
+    font-size: 2.6em;
+  }
+
   .form-group {
     flex-direction: column;
     align-items: flex-start;
   }
 
   .form-group label {
+    font-size: 1.2em;
     min-width: auto;
   }
 
-  .form-group input {
+  .form-group input[type="number"] {
     width: 100%;
+    font-size: 1.3em;
+    padding: 1em;
+  }
+
+  input[type="checkbox"] {
+    transform: scale(1.6);
+  }
+
+  button {
+    font-size: 1.3em;
+    padding: 1em 1.8em;
+  }
+
+  #result {
+    font-size: 1.4em;
+  }
+
+  #growthChart {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+/* 大画面対応：さらに広げる */
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1200px;
+  }
+
+  h1 {
+    font-size: 2.8em;
+  }
+
+  #growthChart {
+    aspect-ratio: 21 / 9;
   }
 }
