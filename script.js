@@ -107,6 +107,10 @@ function calculateAndRender(monthly, ratePercent, years, nisaMode, initial, bonu
     window.myChart.destroy();
   }
 
+  // 画面幅に応じたフォントサイズ
+  const isMobile = window.innerWidth < 600;
+  const fontSize = isMobile ? 16 : 14;
+
   window.myChart = new Chart(ctx, {
     type: 'line',
     data: {
@@ -151,6 +155,12 @@ function calculateAndRender(monthly, ratePercent, years, nisaMode, initial, bonu
           borderWidth: 1,
           padding: 10,
           cornerRadius: 6,
+          titleFont: {
+            size: fontSize + 2
+          },
+          bodyFont: {
+            size: fontSize + 1
+          },
           callbacks: {
             title: function(context) {
               return `【${context[0].label}】`;
@@ -161,6 +171,14 @@ function calculateAndRender(monthly, ratePercent, years, nisaMode, initial, bonu
               return `▶ ${label}：¥${value.toLocaleString()}`;
             }
           }
+        },
+        legend: {
+          labels: {
+            font: {
+              size: fontSize + 1
+            },
+            color: '#ffffff'
+          }
         }
       },
       scales: {
@@ -168,7 +186,10 @@ function calculateAndRender(monthly, ratePercent, years, nisaMode, initial, bonu
           beginAtZero: true,
           ticks: {
             callback: value => `¥${value.toLocaleString()}`,
-            color: '#e0f7fa'
+            color: '#e0f7fa',
+            font: {
+              size: fontSize
+            }
           },
           grid: {
             color: 'rgba(255, 255, 255, 0.1)'
@@ -176,7 +197,10 @@ function calculateAndRender(monthly, ratePercent, years, nisaMode, initial, bonu
         },
         x: {
           ticks: {
-            color: '#e0f7fa'
+            color: '#e0f7fa',
+            font: {
+              size: fontSize
+            }
           },
           grid: {
             color: 'rgba(255, 255, 255, 0.05)'
